@@ -99,7 +99,6 @@ console.log(obj.city);
 /***********************************
  * Lecture: Passing functions as arguments
  */
-
 /*
  var years = [1984, 1980, 1937, 2005, 1998];
 
@@ -126,16 +125,14 @@ function maxHeartRate(el) {
     } else {
         return -1;
     }
-
-    
 }
 
 var ages = arrayCalc(years, calculateAge);
 var fullAges = arrayCalc(ages, isFullAge);
 var rates = arrayCalc(ages, maxHeartRate);
 
-
 console.log(ages);
+console.log(fullAges);
 console.log(rates);
 */
 
@@ -266,6 +263,7 @@ interviewQuestion('designer')('jane');
 
 /********************************************
  * Lecture: Bind, call and apply
+ * (lets you explicitly set the 'this' keyword)
  */
 
  /*
@@ -290,10 +288,14 @@ var emily = {
 
 john.presentation('formal', 'morning');
 
+// call
 john.presentation.call(emily, 'friendly', 'afternoon');
 
+//apply
 // john.presentation.apply(emily, ['friendly', 'afternoon']);
 
+//bind (doesn't immediately call the function, but instead generates a copy of the function, so we can store it somewhere)
+//bind is extremely useful to create function with pre-set arguments.
 var johnFriendly = john.presentation.bind(john, 'friendly');
 johnFriendly('morning');
 johnFriendly('night');
@@ -305,10 +307,7 @@ emilyFormal('afternoon');
 
 
 
-
-
-
-
+// example using bind
 var years = [1984, 1980, 1937, 2005, 1998];
 
 function arrayCalc(arr, fn) {
@@ -372,6 +371,7 @@ c) correct answer (I would use a number for this)
 (Hint: we learned a special technique to do exactly that).
 */
 
+/*
 (function() {
     var score = 0;
 
@@ -430,7 +430,7 @@ c) correct answer (I would use a number for this)
     displayNextQuestion();
 
 })();
-
+*/
 
 
 /*
