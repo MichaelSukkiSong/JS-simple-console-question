@@ -266,7 +266,7 @@ interviewQuestion('designer')('jane');
  * (lets you explicitly set the 'this' keyword)
  */
 
- /*
+/* 
  var john = {
      name: 'John',
      age: 26,
@@ -292,7 +292,7 @@ john.presentation('formal', 'morning');
 john.presentation.call(emily, 'friendly', 'afternoon');
 
 //apply
-// john.presentation.apply(emily, ['friendly', 'afternoon']);
+john.presentation.apply(emily, ['friendly', 'afternoon']);
 
 //bind (doesn't immediately call the function, but instead generates a copy of the function, so we can store it somewhere)
 //bind is extremely useful to create function with pre-set arguments.
