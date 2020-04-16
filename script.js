@@ -344,8 +344,6 @@ c) correct answer (I would use a number for this)
 (Hint: we learned a special technique to do exactly that).
 */
 (function() {
-  var score = 0;
-
   var Question = function(question, answers, correctAnswer) {
     (this.question = question),
       (this.answers = answers),
@@ -361,51 +359,63 @@ c) correct answer (I would use a number for this)
     }
   };
 
-  Question.prototype.checkAnswer = function(userAnswer) {
+  Question.prototype.checkAnswer = function(userAnswer, fn) {
     if (userAnswer === this.correctAnswer) {
+      var sc;
       console.log("Correct!");
-      score += 1;
-      console.log(score);
-      nextRandomQuestion();
-    } else if (userAnswer === "exit") {
-      console.log("Bye!");
+      sc = fn(true);
     } else {
       console.log("Wrong!");
-      nextRandomQuestion();
+      sc = fn(false);
     }
+    this.displayScore(sc);
   };
 
-  Question.prototype.displayScore = function() {};
+  Question.prototype.displayScore = function(score) {
+    console.log("Yout current score is: " + score);
+    console.log("---------------------------------");
+  };
 
   var question1 = new Question(
     "What is the best programming language?",
     ["Javascript", "Python", "Typescript"],
-    "0"
+    0
   );
   var question2 = new Question(
     "Where does Michael want to go?",
     ["USA", "Italy", "UK"],
-    "0"
+    0
   );
   var question3 = new Question(
     "What does Michael do after studying",
     ["Go to the gym and work the fuck out", "Go to museum", "Drink"],
-    "0"
+    0
   );
-
   var arrQuestions = [question1, question2, question3];
-  var selectedQuestion = arrQuestions[Math.floor(Math.random() * 3)];
 
-  selectedQuestion.log2Console();
-  var userAnswer = prompt("Enter your answer please xD");
-  selectedQuestion.checkAnswer(userAnswer);
+  function score() {
+    var sc = 0;
+    return function(correct) {
+      if (correct) {
+        sc++;
+      }
+      return sc;
+    };
+  }
+
+  var keepScore = score();
 
   function nextRandomQuestion() {
     var nextQuestion = arrQuestions[Math.floor(Math.random() * 3)];
     nextQuestion.log2Console();
     var userAnswer = prompt("Enter your answer please xD");
-    nextQuestion.checkAnswer(userAnswer);
+
+    if (userAnswer !== "exit") {
+      nextQuestion.checkAnswer(parseInt(userAnswer), keepScore);
+      nextRandomQuestion();
+    }
   }
+  nextRandomQuestion();
 })();
 
 /*
